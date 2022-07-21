@@ -2,10 +2,16 @@
   "scriptFile": "__init__.py",
   "bindings": [
     {
-      "name": "message",
+      "type": "queue",
+      "direction": "out",
+      "name": "msg",
+      "queueName": "acmesub-translations-queue"
+    },
+    {
+      "name": "translation",
       "type": "table",
-      "tableName": "messages",
-      "partitionKey": "message",
+      "tableName": "AcmeTranslations",
+      "partitionKey": "translation",
       "direction": "out"
     },
     {
