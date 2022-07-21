@@ -2,6 +2,13 @@
   "scriptFile": "__init__.py",
   "bindings": [
     {
+      "name": "message",
+      "type": "table",
+      "tableName": "messages",
+      "partitionKey": "message",
+      "direction": "out"
+    },
+    {
       "authLevel": "Anonymous",
       "type": "httpTrigger",
       "direction": "in",

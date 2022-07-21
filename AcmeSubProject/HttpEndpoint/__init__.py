@@ -1,20 +1,31 @@
 import logging
+import uuid
+import json
 import time
 import azure.functions as func
 
 
-def main(request: func.HttpRequest) -> func.HttpResponse:
+def main(request: func.HttpRequest, message: func.Out[str]) -> func.HttpResponse:
     logging.info('HTTP trigger function received a request.')
     start = time.time()
 
-#    req_body = req.get_json()
-#    subtitle = req_body.get("subtitle")
+    req_body = request.get_json()
+    subtitle = req_body.get("subtitle")
 
-    time.sleep(5) # Simulating 5 seconds of cpu-intensive processing
+    rowKey = str(uuid.uuid4())
+
+    data = {
+        "Name": "Output binding message",
+        "PartitionKey": "message",
+        "RowKey": rowKey
+    }
+
+    message.set(json.dumps(data))
+
     end = time.time()
     processingTime = end - start
 
     return func.HttpResponse(
-        f"Processing took {str(processingTime)} seconds. Translation is: {subtitle}",
+        f"Processing took {str(processingTime)} seconds. Translation is: {subtitle}, Message created with the rowKey: {rowKey}",
         status_code=200
     )
