@@ -18,10 +18,3 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         f"Processing took {str(processingTime)} seconds. Translation is: {subtitle}",
         status_code=200
     )
-
-
-
-
-
-
-   
